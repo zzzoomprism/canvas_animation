@@ -22,3 +22,8 @@ export const PACMAN_CONFIG = {
   RADIUS: 40,
   PADDING: 5
 };
+
+export const CANVAS = {
+  WIDTH: 800,
+  HEIGHT: 500
+};

@@ -1,3 +1,4 @@
+import { balls, collision } from '../other/balls';
 import {
   POSITION,
   RIGHT_ARC_CONFIG,
@@ -27,17 +28,19 @@ export class Pacman {
 
     ctx.beginPath();
 
-    const x_saver = this.x;
-    const y_saver = this.y;
+    let x_saver = this.x;
+    let y_saver = this.y;
 
     let currentStartPoint;
     let currentEndPoint;
     const isPositionRight = position === POSITION.RIGHT;
 
     if (isPositionRight) {
+      this.x += 5;
       currentStartPoint = RIGHT_ARC_CONFIG.START - this.mouthCloseSize;
       currentEndPoint = RIGHT_ARC_CONFIG.END + this.mouthCloseSize;
     } else {
+      this.x -= 5;
       currentStartPoint = LEFT_ARC_CONFIG.START - this.mouthCloseSize;
       currentEndPoint = LEFT_ARC_CONFIG.END + this.mouthCloseSize;
     }
@@ -64,13 +67,7 @@ export class Pacman {
     return mouthClose;
   }
 
-  draw(ctx, position, x, y) {
-    ctx.clearRect(
-      this.x - this.radius - PACMAN_CONFIG.PADDING,
-      this.y - this.radius - PACMAN_CONFIG.PADDING,
-      this.radius * 2 + PACMAN_CONFIG.PADDING,
-      this.radius * 2 + PACMAN_CONFIG.PADDING
-    );
+  draw(ctx, position) {
     mouthClose = this.isMouthClose();
 
     if (mouthClose) this.mouthCloseSize += 0.05;
@@ -78,16 +75,32 @@ export class Pacman {
 
     switch (position) {
       case POSITION.RIGHT: {
-        this.x += 5;
+        clearCenterRect(ctx);
+        const ballCollisionConfig = collision(this.x + PACMAN_CONFIG.RADIUS);
+        console.log('COLLISION CONFIG', ballCollisionConfig);
+        balls(ctx, ballCollisionConfig);
         this.init(ctx, POSITION.RIGHT);
         break;
       }
       case POSITION.LEFT: {
-        this.x -= 5;
+        clearCenterRect(ctx);
+        balls(ctx);
         this.init(ctx, POSITION.LEFT);
         break;
       }
     }
-    this.drawRef = window.requestAnimationFrame(() => this.draw(ctx, POSITION.RIGHT));
+
+    this.drawRef = window.requestAnimationFrame(() => this.draw(ctx, position));
   }
 }
+
+const clearCenterRect = ctx => {
+  const centerWidth = window.innerWidth / 2;
+  const centerHeight = window.innerHeight / 2;
+  ctx.clearRect(
+    centerWidth - BOUNDARY_SIZE.WIDTH / 2,
+    centerHeight - BOUNDARY_SIZE.HEIGHT / 2,
+    BOUNDARY_SIZE.WIDTH,
+    BOUNDARY_SIZE.HEIGHT
+  );
+};
