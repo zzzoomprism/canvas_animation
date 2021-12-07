@@ -1,11 +1,11 @@
-import { BOUNDARY_SIZE } from '../constants';
+import { BOUNDARY_SIZE, CANVAS } from '../constants';
 
 const BALLS_COUNT = 15;
 const BALLS_RADIUS = 10;
 const BALLS_PADDING = 20;
 const LEFT_MARGIN = 100;
 
-const BEGIN_X_PART = (window.innerWidth - BOUNDARY_SIZE.WIDTH) / 2 + LEFT_MARGIN;
+const BEGIN_X_PART = (CANVAS.WIDTH - BOUNDARY_SIZE.WIDTH) / 2 + LEFT_MARGIN;
 let BOUNDARY_X_POSITIONS = [];
 
 const EMPTY_VALUES = [undefined, null, ''];
@@ -43,7 +43,7 @@ export const balls = (ctx, collisionParam) => {
     BOUNDARY_X_POSITIONS.push([el.position, el.position + BALLS_RADIUS * 2]);
     if (el.isVisible) {
       ctx.beginPath();
-      ctx.arc(el.position, window.innerHeight / 2, BALLS_RADIUS, 0, Math.PI * 2, true);
+      ctx.arc(el.position, CANVAS.HEIGHT / 2, BALLS_RADIUS, 0, Math.PI * 2, true);
       ctx.closePath();
       ctx.fill();
     }

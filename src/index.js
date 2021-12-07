@@ -1,13 +1,13 @@
 import { Pacman } from './characters/pacman';
-import { POSITION } from './constants';
+import { POSITION, CANVAS } from './constants';
 import { ballsClearData } from './other/balls';
 import { boundary } from './other/boundary';
 
 const canvas = document.getElementById('root');
 let isPressed = false;
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = CANVAS.WIDTH;
+canvas.height = CANVAS.HEIGHT;
 const ctx = canvas.getContext('2d');
 const pacman = new Pacman();
 

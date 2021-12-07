@@ -1,8 +1,8 @@
-import { BOUNDARY_SIZE } from './../constants';
+import { BOUNDARY_SIZE, CANVAS } from './../constants';
 
 export const boundary = ctx => {
-  const centerWidth = window.innerWidth / 2;
-  const centerHeight = window.innerHeight / 2;
+  const centerWidth = CANVAS.WIDTH / 2;
+  const centerHeight = CANVAS.HEIGHT / 2;
   ctx.strokeStyle = '#3891A6';
   ctx.lineWidth = 4;
   ctx.strokeRect(

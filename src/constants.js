@@ -24,6 +24,6 @@ export const PACMAN_CONFIG = {
 };
 
 export const CANVAS = {
-  WIDTH: 800,
+  WIDTH: 1200,
   HEIGHT: 500
 };

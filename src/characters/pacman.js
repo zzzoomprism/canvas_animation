@@ -4,7 +4,8 @@ import {
   RIGHT_ARC_CONFIG,
   LEFT_ARC_CONFIG,
   PACMAN_CONFIG,
-  BOUNDARY_SIZE
+  BOUNDARY_SIZE,
+  CANVAS
 } from './../constants';
 
 let mouthClose = true;
@@ -13,11 +14,8 @@ export class Pacman {
   constructor() {
     this.radius = PACMAN_CONFIG.RADIUS;
     this.x =
-      window.innerWidth / 2 -
-      BOUNDARY_SIZE.WIDTH / 2 +
-      PACMAN_CONFIG.RADIUS +
-      BOUNDARY_SIZE.PADDING;
-    this.y = window.innerHeight / 2;
+      CANVAS.WIDTH / 2 - BOUNDARY_SIZE.WIDTH / 2 + PACMAN_CONFIG.RADIUS + BOUNDARY_SIZE.PADDING;
+    this.y = CANVAS.HEIGHT / 2;
     this.angle = RIGHT_ARC_CONFIG.START;
     this.mouthCloseSize = 0;
   }
@@ -77,7 +75,6 @@ export class Pacman {
       case POSITION.RIGHT: {
         clearCenterRect(ctx);
         const ballCollisionConfig = collision(this.x + PACMAN_CONFIG.RADIUS);
-        console.log('COLLISION CONFIG', ballCollisionConfig);
         balls(ctx, ballCollisionConfig);
         this.init(ctx, POSITION.RIGHT);
         break;
@@ -95,8 +92,8 @@ export class Pacman {
 }
 
 const clearCenterRect = ctx => {
-  const centerWidth = window.innerWidth / 2;
-  const centerHeight = window.innerHeight / 2;
+  const centerWidth = CANVAS.WIDTH / 2;
+  const centerHeight = CANVAS.HEIGHT / 2;
   ctx.clearRect(
     centerWidth - BOUNDARY_SIZE.WIDTH / 2,
     centerHeight - BOUNDARY_SIZE.HEIGHT / 2,
